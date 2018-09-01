@@ -209,7 +209,15 @@ tensorflow() (
   "$BUILD_STATIC_SITE" --target tensorflow --repo tensorflow/tensorflow
 )
 
-libp2p || true
-ipfs || true
-gitcoin || true
-tensorflow || true
+zcash() (
+  cd "$DEMO_DIR"
+  rm -rf zcash
+  "$BUILD_STATIC_SITE" --target zcash --repo zcash/zcash
+)
+
+# libp2p || true
+# ipfs || true
+# gitcoin || true
+# ropensci || true
+# tensorflow || true
+zcash || true

@@ -3,26 +3,25 @@
 set -eu
 
 SOURCECRED_DIR=~/git/sourcecred
-BUILD_STATIC_SITE="$SOURCECRED_DIR"/scripts/build_static_site.sh
+SOURCECRED_CLI="$SOURCECRED_DIR/bin/sourcecred.js"
+BUILD_STATIC_SITE="$SOURCECRED_DIR/scripts/build_static_site.sh"
 DEMO_DIR=~/git/sourcecred-demos/
 
 
 gitcoin() (
   cd "$DEMO_DIR"
   rm -rf gitcoin
-  "$BUILD_STATIC_SITE" --target gitcoin --feedback-url https://discuss.sourcecred.io/t/gitcoin-cred-feedback/19
-  cd "$SOURCECRED_DIR"
-  node bin/sourcecred.js load gitcoinco/web -d "$DEMO_DIR/gitcoin/api/v1/data/"
+  "$BUILD_STATIC_SITE" --target gitcoin --feedback-url https://discuss.sourcecred.io/t/gitcoin-cred-feedback/19 --repo gitcoinco/web
+  SOURCECRED_DIRECTORY="$DEMO_DIR/gitcoin/api/v1/data/" node "$SOURCECRED_CLI" load gitcoinco/web
 )
 
 ipfs() (
   cd "$DEMO_DIR"
   rm -rf ipfs
   "$BUILD_STATIC_SITE" --target ipfs --feedback-url https://discuss.sourcecred.io/t/ipfs-cred-feedback/17
-  cd "$SOURCECRED_DIR"
-  node bin/sourcecred.js load ipfs/js-ipfs -d "$DEMO_DIR/ipfs/api/v1/data/"
-  node bin/sourcecred.js load ipfs/go-ipfs -d "$DEMO_DIR/ipfs/api/v1/data/"
-  node bin/sourcecred.js load --output ipfs/top30 -d "$DEMO_DIR/ipfs/api/v1/data/" \
+  SOURCECRED_DIRECTORY="$DEMO_DIR/ipfs/api/v1/data/" node "$SOURCECRED_CLI" load ipfs/js-ipfs
+  SOURCECRED_DIRECTORY="$DEMO_DIR/ipfs/api/v1/data/" node "$SOURCECRED_CLI" load ipfs/go-ipfs
+  SOURCECRED_DIRECTORY="$DEMO_DIR/ipfs/api/v1/data/"  node "$SOURCECRED_CLI" load --output ipfs/top30 \
     ipfs/go-ipfs \
     ipfs/js-ipfs \
     ipfs/js-ipfs-api \
@@ -61,8 +60,7 @@ ropensci() {
   cd "$DEMO_DIR"
   rm -rf ropensci
   "$BUILD_STATIC_SITE" --target ropensci --feedback-url https://discuss.sourcecred.io/t/ropensci-cred-feedback/24
-  cd "$SOURCECRED_DIR"
-  node bin/sourcecred.js load --output ropensci/all -d "$DEMO_DIR/ropensci/api/v1/data/" \
+  SOURCECRED_DIRECTORY="$DEMO_DIR/ropensci/api/v1/data/"  node "$SOURCECRED_CLI" load --output ropensci/all \
     ropensci/RMendeley \
     ropensci/taxize \
     ropensci/rplos \
@@ -432,8 +430,7 @@ libp2p() (
   cd "$DEMO_DIR"
   rm -rf libp2p
   "$BUILD_STATIC_SITE" --target libp2p --feedback-url https://discuss.sourcecred.io/t/libp2p-cred-feedback/21
-  cd "$SOURCECRED_DIR"
-  node bin/sourcecred.js load --output libp2p/all -d "$DEMO_DIR/libp2p/api/v1/data/" \
+  SOURCECRED_DIRECTORY="$DEMO_DIR/libp2p/api/v1/data/"  node "$SOURCECRED_CLI" load --output libp2p/all \
     libp2p/go-sockaddr \
     libp2p/go-reuseport \
     libp2p/go-mplex \
@@ -587,9 +584,23 @@ zcash() (
   "$BUILD_STATIC_SITE" --target zcash --repo zcash/zcash
 )
 
+opencollective() (
+  cd "$DEMO_DIR"
+  rm -rf opencollective
+  "$BUILD_STATIC_SITE" --target opencollective
+  SOURCECRED_DIRECTORY="$DEMO_DIR/opencollective/api/v1/data/"  node "$SOURCECRED_CLI" load --output opencollective/pinned \
+    opencollective/opencollective \
+    opencollective/opencollective-api \
+    opencollective/opencollective-website \
+    opencollective/opencollective-frontend \
+    opencollective/opencollective-backyourstack \
+   ;
+)
+
 # libp2p || true
-# ipfs || true
+# tensorflow || true
 # gitcoin || true
-ropensci || true
-tensorflow || true
+# ipfs || true
+# ropensci || true
 # zcash || true
+opencollective

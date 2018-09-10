@@ -584,6 +584,12 @@ zcash() (
   "$BUILD_STATIC_SITE" --target zcash --repo zcash/zcash
 )
 
+nuxt() (
+  cd "$DEMO_DIR"
+  rm -rf nuxt
+  "$BUILD_STATIC_SITE" --target nuxt --repo nuxt/nuxt.js
+)
+
 opencollective() (
   cd "$DEMO_DIR"
   rm -rf opencollective
@@ -592,10 +598,25 @@ opencollective() (
     opencollective/opencollective \
     opencollective/opencollective-api \
     opencollective/opencollective-website \
-    opencollective/opencollective-frontend \
-    opencollective/opencollective-backyourstack \
+    opencollective/frontend \
+    opencollective/backyourstack \
    ;
 )
+
+augur() (
+  cd "$DEMO_DIR"
+  rm -rf augur
+  "$BUILD_STATIC_SITE" --target augur
+  SOURCECRED_DIRECTORY="$DEMO_DIR/augur/api/v1/data/"  node "$SOURCECRED_CLI" load --output augur/augur \
+    AugurProject/augur-ui \
+    AugurProject/augur-app \
+    AugurProject/augur-node \
+    AugurProject/augur.js \
+    AugurProject/augur-core \
+    AugurProject/docs \
+   ;
+)
+
 
 # libp2p || true
 # tensorflow || true
@@ -603,4 +624,6 @@ opencollective() (
 # ipfs || true
 # ropensci || true
 # zcash || true
-opencollective
+# opencollective
+# nuxt
+augur

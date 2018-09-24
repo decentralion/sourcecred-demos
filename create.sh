@@ -617,6 +617,13 @@ augur() (
    ;
 )
 
+flow() (
+  cd "$DEMO_DIR"
+  rm -rf flow
+  "$BUILD_STATIC_SITE" --target flow --repo facebook/flow
+  SOURCECRED_DIRECTORY="$DEMO_DIR/flow/api/v1/data/" node "$SOURCECRED_CLI" load facebook/flow
+)
+
 
 # libp2p || true
 # tensorflow || true
@@ -626,4 +633,5 @@ augur() (
 # zcash || true
 # opencollective
 # nuxt
-augur
+# augur
+flow || true

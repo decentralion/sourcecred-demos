@@ -620,8 +620,13 @@ augur() (
 flow() (
   cd "$DEMO_DIR"
   rm -rf flow
-  "$BUILD_STATIC_SITE" --target flow --repo facebook/flow
-  SOURCECRED_DIRECTORY="$DEMO_DIR/flow/api/v1/data/" node "$SOURCECRED_CLI" load facebook/flow
+  "$BUILD_STATIC_SITE" \
+      --target flow \
+      --feedback-url 'https://discuss.sourcecred.io/t/flow-cred-feedback/44' \
+      --repo facebook/flow \
+      ;
+  SOURCECRED_DIRECTORY="$DEMO_DIR/flow/api/v1/data/" \
+      node "$SOURCECRED_CLI" load facebook/flow
 )
 
 

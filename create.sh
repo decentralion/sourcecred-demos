@@ -629,6 +629,13 @@ flow() (
       node "$SOURCECRED_CLI" load facebook/flow
 )
 
+git() (
+  cd "$DEMO_DIR"
+  rm -rf git
+  "$BUILD_STATIC_SITE" --target git --repo git/git
+)
+
+
 
 # libp2p || true
 # tensorflow || true
@@ -639,4 +646,5 @@ flow() (
 # opencollective
 # nuxt
 # augur
-flow || true
+# flow || true
+git || true

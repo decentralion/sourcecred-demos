@@ -2,26 +2,22 @@
 
 set -eu
 
-SOURCECRED_DIR=~/git/sourcecred
+DEMO_DIR=~/git/sourcecred-demos
+SOURCECRED_DIR="$DEMO_DIR/sourcecred"
 SOURCECRED_CLI="$SOURCECRED_DIR/bin/sourcecred.js"
-BUILD_STATIC_SITE="$SOURCECRED_DIR/scripts/build_static_site.sh"
-DEMO_DIR=~/git/sourcecred-demos/
+export SOURCECRED_DIRECTORY="$DEMO_DIR/sourcecred_data"
+SITE_DIR="$DEMO_DIR/site"
 
+(cd "$SOURCECRED_DIR" && git fetch && git checkout origin/master && yarn && yarn backend)
 
 gitcoin() (
-  cd "$DEMO_DIR"
-  rm -rf gitcoin
-  "$BUILD_STATIC_SITE" --target gitcoin --feedback-url https://discuss.sourcecred.io/t/gitcoin-cred-feedback/19 --repo gitcoinco/web
-  SOURCECRED_DIRECTORY="$DEMO_DIR/gitcoin/api/v1/data/" node "$SOURCECRED_CLI" load gitcoinco/web
+  node "$SOURCECRED_CLI" load gitcoinco/web
 )
 
 ipfs() (
-  cd "$DEMO_DIR"
-  rm -rf ipfs
-  "$BUILD_STATIC_SITE" --target ipfs --feedback-url https://discuss.sourcecred.io/t/ipfs-cred-feedback/17
-  SOURCECRED_DIRECTORY="$DEMO_DIR/ipfs/api/v1/data/" node "$SOURCECRED_CLI" load ipfs/js-ipfs
-  SOURCECRED_DIRECTORY="$DEMO_DIR/ipfs/api/v1/data/" node "$SOURCECRED_CLI" load ipfs/go-ipfs
-  SOURCECRED_DIRECTORY="$DEMO_DIR/ipfs/api/v1/data/"  node "$SOURCECRED_CLI" load --output ipfs/top30 \
+  node "$SOURCECRED_CLI" load ipfs/go-ipfs
+  node "$SOURCECRED_CLI" load ipfs/js-ipfs
+  node "$SOURCECRED_CLI" load --output ipfs/combined
     ipfs/go-ipfs \
     ipfs/js-ipfs \
     ipfs/js-ipfs-api \
@@ -57,10 +53,7 @@ ipfs() (
 
 
 ropensci() {
-  cd "$DEMO_DIR"
-  rm -rf ropensci
-  "$BUILD_STATIC_SITE" --target ropensci --feedback-url https://discuss.sourcecred.io/t/ropensci-cred-feedback/24
-  SOURCECRED_DIRECTORY="$DEMO_DIR/ropensci/api/v1/data/"  node "$SOURCECRED_CLI" load --output ropensci/all \
+  node "$SOURCECRED_CLI" load --output ropensci/all \
     ropensci/RMendeley \
     ropensci/taxize \
     ropensci/rplos \
@@ -427,10 +420,7 @@ ropensci() {
 }
 
 libp2p() (
-  cd "$DEMO_DIR"
-  rm -rf libp2p
-  "$BUILD_STATIC_SITE" --target libp2p --feedback-url https://discuss.sourcecred.io/t/libp2p-cred-feedback/21
-  SOURCECRED_DIRECTORY="$DEMO_DIR/libp2p/api/v1/data/"  node "$SOURCECRED_CLI" load --output libp2p/all \
+  node "$SOURCECRED_CLI" load --output libp2p/all \
     libp2p/go-sockaddr \
     libp2p/go-reuseport \
     libp2p/go-mplex \
@@ -572,29 +562,8 @@ libp2p() (
     ;
 )
 
-tensorflow() (
-  cd "$DEMO_DIR"
-  rm -rf tensorflow
-  "$BUILD_STATIC_SITE" --target tensorflow --repo tensorflow/tensorflow
-)
-
-zcash() (
-  cd "$DEMO_DIR"
-  rm -rf zcash
-  "$BUILD_STATIC_SITE" --target zcash --repo zcash/zcash
-)
-
-nuxt() (
-  cd "$DEMO_DIR"
-  rm -rf nuxt
-  "$BUILD_STATIC_SITE" --target nuxt --repo nuxt/nuxt.js
-)
-
 opencollective() (
-  cd "$DEMO_DIR"
-  rm -rf opencollective
-  "$BUILD_STATIC_SITE" --target opencollective
-  SOURCECRED_DIRECTORY="$DEMO_DIR/opencollective/api/v1/data/"  node "$SOURCECRED_CLI" load --output opencollective/pinned \
+  node "$SOURCECRED_CLI" load --output opencollective/pinned \
     opencollective/opencollective \
     opencollective/opencollective-api \
     opencollective/opencollective-website \
@@ -602,12 +571,15 @@ opencollective() (
     opencollective/backyourstack \
    ;
 )
+#opencollective
+
+sourcecred() (
+  node "$SOURCECRED_CLI" load sourcecred/sourcecred
+)
+sourcecred
 
 augur() (
-  cd "$DEMO_DIR"
-  rm -rf augur
-  "$BUILD_STATIC_SITE" --target augur
-  SOURCECRED_DIRECTORY="$DEMO_DIR/augur/api/v1/data/"  node "$SOURCECRED_CLI" load --output augur/augur \
+  node "$SOURCECRED_CLI" load --output augur/augur \
     AugurProject/augur-ui \
     AugurProject/augur-app \
     AugurProject/augur-node \
@@ -617,34 +589,22 @@ augur() (
    ;
 )
 
-flow() (
-  cd "$DEMO_DIR"
-  rm -rf flow
-  "$BUILD_STATIC_SITE" \
-      --target flow \
-      --feedback-url 'https://discuss.sourcecred.io/t/flow-cred-feedback/44' \
-      --repo facebook/flow \
-      ;
-  SOURCECRED_DIRECTORY="$DEMO_DIR/flow/api/v1/data/" \
-      node "$SOURCECRED_CLI" load facebook/flow
+babel() (
+  node "$SOURCECRED_CLI" load babel/babel
 )
+#babel
 
-git() (
-  cd "$DEMO_DIR"
-  rm -rf git
-  "$BUILD_STATIC_SITE" --target git --repo git/git
+bootstrap() (
+  node "$SOURCECRED_CLI" load twbs/bootstrap
 )
+#bootstrap
 
+threejs() (
+  node "$SOURCECRED_CLI" load mrdoob/three.js
+)
+#threejs
 
-
-# libp2p || true
-# tensorflow || true
-# gitcoin || true
-# ipfs || true
-# ropensci || true
-# zcash || true
-# opencollective
-# nuxt
-# augur
-# flow || true
-git || true
+(cd "$SOURCECRED_DIR" && yarn build --output-path "$SITE_DIR")
+mkdir -p "$SITE_DIR/api/v1"
+cp -r "$SOURCECRED_DIRECTORY" "$SITE_DIR/api/v1/data"
+rm -rf "$SITE_DIR/api/v1/data/cache"

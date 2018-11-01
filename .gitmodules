@@ -1,3 +1,3 @@
 [submodule "sourcecred"]
 	path = sourcecred
-	url = git@github.com:sourcecred/sourcecred.git
+	url = https://github.com/sourcecred/sourcecred.git

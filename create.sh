@@ -13,21 +13,20 @@ SITE_DIR="$DEMO_DIR/site"
 gitcoin() (
   node "$SOURCECRED_CLI" load gitcoinco/web
 )
+# gitcoin || true
 
 ipfs() (
   node "$SOURCECRED_CLI" load ipfs/go-ipfs
   node "$SOURCECRED_CLI" load ipfs/js-ipfs
-  node "$SOURCECRED_CLI" load --output ipfs/combined
+  node "$SOURCECRED_CLI" load --output ipfs/combined \
     ipfs/go-ipfs \
     ipfs/js-ipfs \
     ipfs/js-ipfs-api \
-    ipfs/pm \
     ipfs/ipfs-cluster \
     ipfs/interface-ipfs-core \
     ipfs/infrastructure \
     ipfs/js-ipfsd-ctl \
     ipfs/website \
-    ipfs/js-ipfs-unixfs-engine \
     ipfs/community \
     ipfs/aegir \
     ipfs/js-libp2p-ipfs-browser \
@@ -50,7 +49,7 @@ ipfs() (
     ipfs/go-ipfs-cmds \
    ;
 )
-
+ipfs || true
 
 ropensci() {
   node "$SOURCECRED_CLI" load --output ropensci/all \
@@ -418,6 +417,7 @@ ropensci() {
     ropensci/hydrometeorology \
     ;
 }
+# ropensci || true
 
 libp2p() (
   node "$SOURCECRED_CLI" load --output libp2p/all \
@@ -561,6 +561,7 @@ libp2p() (
     libp2p/research-dht \
     ;
 )
+# libp2p || true
 
 opencollective() (
   node "$SOURCECRED_CLI" load --output opencollective/pinned \
@@ -571,12 +572,12 @@ opencollective() (
     opencollective/backyourstack \
    ;
 )
-#opencollective
+opencollective || true
 
 sourcecred() (
   node "$SOURCECRED_CLI" load sourcecred/sourcecred
 )
-sourcecred
+sourcecred || true
 
 augur() (
   node "$SOURCECRED_CLI" load --output augur/augur \
@@ -592,17 +593,17 @@ augur() (
 babel() (
   node "$SOURCECRED_CLI" load babel/babel
 )
-#babel
+# babel || true
 
 bootstrap() (
   node "$SOURCECRED_CLI" load twbs/bootstrap
 )
-#bootstrap
+# bootstrap || true
 
 threejs() (
   node "$SOURCECRED_CLI" load mrdoob/three.js
 )
-#threejs
+threejs || true
 
 (cd "$SOURCECRED_DIR" && yarn build --output-path "$SITE_DIR")
 mkdir -p "$SITE_DIR/api/v1"

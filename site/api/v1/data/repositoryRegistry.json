@@ -1,1 +1,1 @@
-[{"type":"REPO_ID_REGISTRY","version":"0.1.0"},[{"name":"example-github","owner":"sourcecred"},{"name":"combined","owner":"ipfs"},{"name":"web","owner":"gitcoinco"},{"name":"go-ipfs","owner":"ipfs"},{"name":"js-ipfs","owner":"ipfs"},{"name":"sourcecred","owner":"sourcecred"}]]
+[{"type":"REPO_ID_REGISTRY","version":"0.2.0"},[{"repoId":{"name":"radicle","owner":"oscoin"}}]]

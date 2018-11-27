@@ -49,7 +49,7 @@ ipfs() (
     ipfs/go-ipfs-cmds \
    ;
 )
-ipfs || true
+# ipfs || true
 
 ropensci() {
   node "$SOURCECRED_CLI" load --output ropensci/all \
@@ -572,12 +572,17 @@ opencollective() (
     opencollective/backyourstack \
    ;
 )
-opencollective || true
+# opencollective || true
 
 sourcecred() (
   node "$SOURCECRED_CLI" load sourcecred/sourcecred
 )
-sourcecred || true
+# sourcecred || true
+
+oscoin() (
+  node "$SOURCECRED_CLI" load oscoin/radicle
+)
+oscoin
 
 augur() (
   node "$SOURCECRED_CLI" load --output augur/augur \
@@ -603,7 +608,7 @@ bootstrap() (
 threejs() (
   node "$SOURCECRED_CLI" load mrdoob/three.js
 )
-threejs || true
+# threejs || true
 
 (cd "$SOURCECRED_DIR" && yarn build --output-path "$SITE_DIR")
 mkdir -p "$SITE_DIR/api/v1"

@@ -579,6 +579,11 @@ sourcecred() (
 )
 # sourcecred || true
 
+probot() (
+  node "$SOURCECRED_CLI" load probot/probot
+)
+probot
+
 oscoin() (
   node "$SOURCECRED_CLI" load oscoin/radicle
 )
@@ -608,7 +613,7 @@ bootstrap() (
 threejs() (
   node "$SOURCECRED_CLI" load mrdoob/three.js
 )
-# threejs || true
+# threejs
 
 (cd "$SOURCECRED_DIR" && yarn build --output-path "$SITE_DIR")
 mkdir -p "$SITE_DIR/api/v1"

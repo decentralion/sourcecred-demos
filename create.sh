@@ -582,12 +582,17 @@ sourcecred() (
 probot() (
   node "$SOURCECRED_CLI" load probot/probot
 )
-probot
+# probot
 
 oscoin() (
   node "$SOURCECRED_CLI" load oscoin/radicle
 )
-oscoin
+# oscoin
+
+emeraldwallet() (
+  node "$SOURCECRED_CLI" load ETCDEVTeam/emerald-wallet
+)
+emeraldwallet
 
 augur() (
   node "$SOURCECRED_CLI" load --output augur/augur \

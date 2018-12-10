@@ -2,7 +2,7 @@
 
 set -eu
 
-DEMO_DIR=~/git/sourcecred-demos
+DEMO_DIR=~/git/sc/sourcecred-demos
 SOURCECRED_DIR="$DEMO_DIR/sourcecred"
 SOURCECRED_CLI="$SOURCECRED_DIR/bin/sourcecred.js"
 export SOURCECRED_DIRECTORY="$DEMO_DIR/sourcecred_data"
@@ -619,6 +619,11 @@ threejs() (
   node "$SOURCECRED_CLI" load mrdoob/three.js
 )
 # threejs
+
+swap() (
+  node "$SOURCECRED_CLI" load swapagarwal/swag-for-dev
+)
+swap
 
 (cd "$SOURCECRED_DIR" && yarn build --output-path "$SITE_DIR")
 mkdir -p "$SITE_DIR/api/v1"

@@ -1,1 +1,1 @@
-[{"type":"REPO_ID_REGISTRY","version":"0.2.0"},[{"repoId":{"name":"probot","owner":"probot"}},{"repoId":{"name":"radicle","owner":"oscoin"}},{"repoId":{"name":"bootstrap","owner":"twbs"}},{"repoId":{"name":"emerald-wallet","owner":"ETCDEVTeam"}}]]
+[{"type":"REPO_ID_REGISTRY","version":"0.2.0"},[{"repoId":{"name":"probot","owner":"probot"}},{"repoId":{"name":"radicle","owner":"oscoin"}},{"repoId":{"name":"bootstrap","owner":"twbs"}},{"repoId":{"name":"emerald-wallet","owner":"ETCDEVTeam"}},{"repoId":{"name":"swag-for-dev","owner":"swapagarwal"}}]]
